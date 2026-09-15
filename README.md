@@ -1,0 +1,1 @@
+# AP_VG_RESISTENTE
