@@ -6,17 +6,20 @@
 <meta name="theme-color" content="#0b3d91">
 <title>APavan Vigas — Capacidade Resistente</title>
 
-<!-- ============ iOS: ícone + nome na home screen ============ -->
+<!-- ============ iOS: PWA + home screen ============ -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="APavan Vigas">
 <meta name="application-name" content="APavan Vigas">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" sizes="180x180" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%231e5bb8"/><stop offset="1" stop-color="%230b3d91"/></linearGradient></defs><rect width="512" height="512" rx="115" ry="115" fill="url(%23g)"/><text x="256" y="248" font-family="Arial,Helvetica,sans-serif" font-size="196" font-weight="800" fill="%23ffffff" text-anchor="middle" letter-spacing="-6">AP</text><text x="256" y="328" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700" fill="%23ffffff" text-anchor="middle" letter-spacing="6">VIGAS</text><circle cx="166" cy="410" r="11" fill="%237cb3ff"/><circle cx="211" cy="410" r="11" fill="%237cb3ff"/><circle cx="256" cy="410" r="11" fill="%237cb3ff"/><circle cx="301" cy="410" r="11" fill="%237cb3ff"/><circle cx="346" cy="410" r="11" fill="%237cb3ff"/></svg>'>
-<link rel="apple-touch-icon" sizes="192x192" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%231e5bb8"/><stop offset="1" stop-color="%230b3d91"/></linearGradient></defs><rect width="512" height="512" rx="115" ry="115" fill="url(%23g)"/><text x="256" y="248" font-family="Arial,Helvetica,sans-serif" font-size="196" font-weight="800" fill="%23ffffff" text-anchor="middle" letter-spacing="-6">AP</text><text x="256" y="328" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700" fill="%23ffffff" text-anchor="middle" letter-spacing="6">VIGAS</text><circle cx="166" cy="410" r="11" fill="%237cb3ff"/><circle cx="211" cy="410" r="11" fill="%237cb3ff"/><circle cx="256" cy="410" r="11" fill="%237cb3ff"/><circle cx="301" cy="410" r="11" fill="%237cb3ff"/><circle cx="346" cy="410" r="11" fill="%237cb3ff"/></svg>'>
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%231e5bb8"/><stop offset="1" stop-color="%230b3d91"/></linearGradient></defs><rect width="512" height="512" rx="115" ry="115" fill="url(%23g)"/><text x="256" y="248" font-family="Arial,Helvetica,sans-serif" font-size="196" font-weight="800" fill="%23ffffff" text-anchor="middle" letter-spacing="-6">AP</text><text x="256" y="328" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700" fill="%23ffffff" text-anchor="middle" letter-spacing="6">VIGAS</text><circle cx="166" cy="410" r="11" fill="%237cb3ff"/><circle cx="211" cy="410" r="11" fill="%237cb3ff"/><circle cx="256" cy="410" r="11" fill="%237cb3ff"/><circle cx="301" cy="410" r="11" fill="%237cb3ff"/><circle cx="346" cy="410" r="11" fill="%237cb3ff"/></svg>'>
 
+<!-- Placeholders — preenchidos via JS com PNG gerado dinamicamente -->
+<link rel="apple-touch-icon" sizes="180x180" id="ati180" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="apple-touch-icon" sizes="192x192" id="ati192" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="apple-touch-icon" id="atiDef" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="icon" type="image/png" id="favicon" href="data:image/png;base64,iVBORw0KGgo=">
 <link rel="manifest" href="#" id="manifestLink">
+
 <style>
 :root{
   --azul:#0b3d91; --azul2:#1e5bb8; --azul3:#e8f0fb;
@@ -35,6 +38,7 @@ input,select{font-family:inherit;font-size:14px}
 header.app{
   background:linear-gradient(135deg,var(--azul),var(--azul2));
   color:#fff;padding:14px 16px;position:sticky;top:0;z-index:50;
+  padding-top:calc(14px + env(safe-area-inset-top));
   box-shadow:0 2px 12px rgba(0,0,0,.15)
 }
 .brand{display:flex;align-items:center;gap:10px}
@@ -42,12 +46,12 @@ header.app{
 .brand-txt h1{font-size:15px;letter-spacing:.5px}
 .brand-txt p{font-size:11px;opacity:.85;margin:0}
 
-nav.tabs{display:flex;gap:4px;background:#fff;padding:6px 8px;overflow-x:auto;border-bottom:1px solid var(--cinza3);position:sticky;top:66px;z-index:40}
+nav.tabs{display:flex;gap:4px;background:#fff;padding:6px 8px;overflow-x:auto;border-bottom:1px solid var(--cinza3);position:sticky;top:66px;z-index:40;-webkit-overflow-scrolling:touch}
 nav.tabs button{flex:0 0 auto;padding:8px 12px;border:none;background:transparent;color:var(--cinza);font-weight:600;border-radius:8px;font-size:12px;white-space:nowrap}
 nav.tabs button.active{background:var(--azul3);color:var(--azul)}
 nav.tabs button:hover{background:var(--cinza2)}
 
-main{padding:12px;max-width:1200px;margin:0 auto;padding-bottom:100px}
+main{padding:12px;max-width:1200px;margin:0 auto;padding-bottom:120px}
 section.view{display:none}
 section.view.active{display:block}
 
@@ -65,13 +69,13 @@ section.view.active{display:block}
 label.field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--cinza);font-weight:600}
 label.field .u{color:#94a3b8;font-weight:500;font-size:11px}
 label.field input,label.field select{
-  padding:8px 10px;border:1px solid var(--cinza3);border-radius:8px;background:#fff;font-size:14px;color:var(--texto);width:100%;
+  padding:10px;border:1px solid var(--cinza3);border-radius:8px;background:#fff;font-size:16px;color:var(--texto);width:100%;
 }
 label.field input:focus,label.field select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(30,91,184,.12)}
 
-.btn-primary{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;border:none;padding:14px;border-radius:10px;font-weight:700;font-size:15px;letter-spacing:.4px;width:100%;box-shadow:0 4px 14px rgba(11,61,145,.28)}
+.btn-primary{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;border:none;padding:16px;border-radius:10px;font-weight:700;font-size:15px;letter-spacing:.4px;width:100%;box-shadow:0 4px 14px rgba(11,61,145,.28)}
 .btn-primary:active{transform:translateY(1px)}
-.btn-sec{background:#fff;color:var(--azul);border:1px solid var(--azul2);padding:9px 12px;border-radius:8px;font-weight:600;font-size:12px}
+.btn-sec{background:#fff;color:var(--azul);border:1px solid var(--azul2);padding:10px 14px;border-radius:8px;font-weight:600;font-size:13px}
 .btn-sec:hover{background:var(--azul3)}
 .row-actions{display:flex;gap:8px;flex-wrap:wrap}
 
@@ -102,9 +106,8 @@ canvas.chart{width:100%;height:260px;display:block;border-radius:8px}
 .svg-section{width:100%;max-width:420px;display:block;margin:0 auto}
 .svg-section text{font-family:inherit;font-size:11px;fill:var(--texto)}
 
-.mem-item{background:#fff;border:1px solid #eef2f7;border-radius:8px;padding:10px;margin-bottom:8px;font-size:12px}
+.mem-item{background:#fff;border:1px solid #eef2f7;border-radius:8px;padding:10px;margin-bottom:8px;font-size:12px;word-break:break-word}
 .mem-item b{color:var(--azul);display:block;margin-bottom:4px}
-.mem-item code{background:var(--cinza2);padding:2px 6px;border-radius:4px;font-size:11px;display:inline-block;margin:2px 0}
 .mem-item .res{color:var(--ok);font-weight:700}
 
 .note{font-size:11px;color:#718096;background:var(--cinza2);padding:8px 10px;border-radius:6px;border-left:3px solid var(--azul2);margin-top:8px}
@@ -113,9 +116,9 @@ canvas.chart{width:100%;height:260px;display:block;border-radius:8px}
 input[type=range]{flex:1;accent-color:var(--azul)}
 
 footer.app{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--cinza3);padding:10px 12px;z-index:30;box-shadow:0 -2px 10px rgba(0,0,0,.06);padding-bottom:calc(10px + env(safe-area-inset-bottom))}
-footer.app .btn-primary{padding:12px;font-size:14px}
+footer.app .btn-primary{padding:14px;font-size:14px}
 
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;z-index:100;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90%}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;padding:10px 16px;border-radius:8px;font-size:12px;z-index:100;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90%}
 .toast.show{opacity:1}
 
 @media print{
@@ -153,20 +156,11 @@ footer.app .btn-primary{padding:12px;font-size:14px}
   <div class="card">
     <h3>Geometria da viga</h3>
     <div class="grid g4">
-      <label class="field">L (vão) <span class="u">m</span>
-        <input id="L" type="number" value="5.0" step="0.05" min="0.3">
-      </label>
-      <label class="field">bw (largura) <span class="u">cm</span>
-        <input id="bw" type="number" value="14" step="0.5" min="5">
-      </label>
-      <label class="field">h (altura) <span class="u">cm</span>
-        <input id="h" type="number" value="40" step="0.5" min="10">
-      </label>
-      <label class="field">c (cobrimento) <span class="u">mm</span>
-        <input id="c" type="number" value="25" step="1" min="10">
-      </label>
+      <label class="field">L (vão) <span class="u">m</span><input id="L" type="number" value="5.0" step="0.05" min="0.3"></label>
+      <label class="field">bw (largura) <span class="u">cm</span><input id="bw" type="number" value="14" step="0.5" min="5"></label>
+      <label class="field">h (altura) <span class="u">cm</span><input id="h" type="number" value="40" step="0.5" min="10"></label>
+      <label class="field">c (cobrimento) <span class="u">mm</span><input id="c" type="number" value="25" step="1" min="10"></label>
     </div>
-    <div class="note">Seção retangular <b>bw × h</b>.</div>
   </div>
 
   <div class="card">
@@ -240,7 +234,7 @@ footer.app .btn-primary{padding:12px;font-size:14px}
   </div>
 
   <div class="card">
-    <h3>Estribos (armadura transversal)</h3>
+    <h3>Estribos</h3>
     <div class="grid g3">
       <label class="field">Øt <span class="u">mm</span>
         <select id="dEst">
@@ -252,7 +246,7 @@ footer.app .btn-primary{padding:12px;font-size:14px}
       <label class="field">s <span class="u">cm</span><input id="sEst" type="number" value="15" step="1" min="5"></label>
     </div>
     <div class="grid g3" style="margin-top:10px">
-      <label class="field">Classe estribo <select id="claEst"><option>CA-50</option><option>CA-60</option></select></label>
+      <label class="field">Classe <select id="claEst"><option>CA-50</option><option>CA-60</option></select></label>
       <label class="field">Asw <span class="u">cm²</span><input id="aswDisplay" type="text" readonly></label>
       <label class="field">Asw/s <span class="u">cm²/m</span><input id="aswSDisplay" type="text" readonly></label>
     </div>
@@ -261,48 +255,42 @@ footer.app .btn-primary{padding:12px;font-size:14px}
   <div class="card">
     <h3>Carregamentos</h3>
     <div class="grid g3">
-      <label class="field">q (distribuída) <span class="u">kN/m</span><input id="q" type="number" value="20" step="0.5" min="0"></label>
-      <label class="field">P (concentrada) <span class="u">kN</span><input id="P" type="number" value="0" step="0.5" min="0"></label>
+      <label class="field">q <span class="u">kN/m</span><input id="q" type="number" value="20" step="0.5" min="0"></label>
+      <label class="field">P <span class="u">kN</span><input id="P" type="number" value="0" step="0.5" min="0"></label>
       <label class="field">x_P <span class="u">m</span><input id="xP" type="number" value="2.5" step="0.05" min="0"></label>
     </div>
     <div class="grid g3" style="margin-top:10px">
       <label class="field">γc pp <span class="u">kN/m³</span><input id="gpp" type="number" value="25" step="1" min="15"></label>
       <label class="field">Incluir pp <select id="inclPP"><option value="1">Sim</option><option value="0">Não</option></select></label>
-      <label class="field">δlimite
-        <select id="dlim">
-          <option value="250">L/250</option>
-          <option value="350">L/350</option>
-          <option value="500">L/500</option>
-        </select>
-      </label>
+      <label class="field">δlimite <select id="dlim"><option value="250">L/250</option><option value="350">L/350</option><option value="500">L/500</option></select></label>
     </div>
   </div>
 
   <div class="card">
-    <h3>Seção transversal (visualização)</h3>
+    <h3>Seção transversal</h3>
     <div id="svgBox"><svg class="svg-section" viewBox="0 0 420 300" id="svgSec"></svg></div>
   </div>
 
   <div class="row-actions no-print" style="margin-bottom:12px">
-    <button class="btn-sec" id="btnExemplo">📋 Exemplo ilustrativo</button>
-    <button class="btn-sec" id="btnSalvar">💾 Salvar projeto</button>
-    <button class="btn-sec" id="btnCSV">⬇️ Exportar CSV</button>
-    <button class="btn-sec" id="btnPDF">🖨️ Relatório PDF</button>
+    <button class="btn-sec" id="btnExemplo">📋 Exemplo</button>
+    <button class="btn-sec" id="btnSalvar">💾 Salvar</button>
+    <button class="btn-sec" id="btnCSV">⬇️ CSV</button>
+    <button class="btn-sec" id="btnPDF">🖨️ PDF</button>
   </div>
 
   <div class="note">
-    <b>MODELO DE CÁLCULO — HIPÓTESES</b><br>
-    • NBR 6118:2023, seção retangular, flexão simples, ELU com diagrama retangular de tensões (λ=0,8; α_c=0,85 para fck ≤ 50 MPa).<br>
+    <b>MODELO — HIPÓTESES</b><br>
+    • NBR 6118:2023, seção retangular, flexão simples, ELU com diagrama retangular (λ=0,8; αc=0,85 para fck ≤ 50 MPa).<br>
     • Cisalhamento: Modelo I (bielas a 45°).<br>
-    • Flecha: análise elástica com Ecs·Ic, considerando Branson simplificado.<br>
-    • Esta ferramenta é destinada ao apoio à análise. Os resultados devem ser conferidos por profissional legalmente habilitado.
+    • Flecha: elástica com Ecs·Ic, Branson simplificado.<br>
+    • Não substitui projeto executivo. Conferir com profissional habilitado.
   </div>
 </section>
 
 <section class="view" id="v-resultados">
   <div class="card">
     <h3>Painel de capacidade</h3>
-    <div class="dash-grid" id="dashGrid">
+    <div class="dash-grid">
       <div class="metric"><div class="lbl">MRd (flexão)</div><div class="val" id="rMRd">—<span class="unt">kN·m</span></div><div class="sub" id="rMRdSub">—</div></div>
       <div class="metric"><div class="lbl">VRd (cortante)</div><div class="val" id="rVRd">—<span class="unt">kN</span></div><div class="sub" id="rVRdSub">—</div></div>
       <div class="metric"><div class="lbl">δmax</div><div class="val" id="rDelta">—<span class="unt">mm</span></div><div class="sub" id="rDeltaSub">—</div></div>
@@ -315,7 +303,7 @@ footer.app .btn-primary{padding:12px;font-size:14px}
   </div>
 
   <div class="card">
-    <h3>Diagnóstico automático</h3>
+    <h3>Diagnóstico</h3>
     <div class="diag" id="diagList">
       <div class="diag-item"><div class="dot"></div><div class="txt"><b>Aguardando cálculo</b><span>Clique em CALCULAR CAPACIDADE.</span></div></div>
     </div>
@@ -358,10 +346,7 @@ footer.app .btn-primary{padding:12px;font-size:14px}
 </section>
 
 <section class="view" id="v-memoria">
-  <div class="card">
-    <h3>Memória de cálculo</h3>
-    <div id="memBox"><p style="font-size:12px;color:var(--cinza)">Clique em CALCULAR CAPACIDADE.</p></div>
-  </div>
+  <div class="card"><h3>Memória de cálculo</h3><div id="memBox"><p style="font-size:12px;color:var(--cinza)">Clique em CALCULAR CAPACIDADE.</p></div></div>
 </section>
 
 <section class="view" id="v-proj">
@@ -384,7 +369,7 @@ footer.app .btn-primary{padding:12px;font-size:14px}
 <div class="toast" id="toast"></div>
 
 <script>
-/* APavan — Capacidade Resistente de Vigas — NBR 6118:2023 — v1.0.1 */
+/* APavan Vigas — v1.0.2 — NBR 6118:2023 */
 
 const $ = (id)=>document.getElementById(id);
 const fmt = (v, n=2)=>{
@@ -396,11 +381,61 @@ const toast = (m)=>{
   clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'), 2200);
 };
 
-const APP = {
-  inputs: null, results: null,
-  version: '1.0.1',
-  engineDate: new Date().toISOString().slice(0,10)
-};
+const APP = { inputs:null, results:null, version:'1.0.2', engineDate:new Date().toISOString().slice(0,10) };
+
+/* =========================================================
+   GERAÇÃO DO ÍCONE PNG — AP / VIGAS / •••••
+   ========================================================= */
+
+function generateIconPNG(size){
+  const c = document.createElement('canvas');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  const s = size / 512;
+
+  // Fundo com cantos arredondados (estilo iOS)
+  const r = 115 * s;
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(size - r, 0);
+  ctx.quadraticCurveTo(size, 0, size, r);
+  ctx.lineTo(size, size - r);
+  ctx.quadraticCurveTo(size, size, size - r, size);
+  ctx.lineTo(r, size);
+  ctx.quadraticCurveTo(0, size, 0, size - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+
+  const grad = ctx.createLinearGradient(0, 0, 0, size);
+  grad.addColorStop(0, '#1e5bb8');
+  grad.addColorStop(1, '#0b3d91');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Texto "AP"
+  ctx.fillStyle = '#ffffff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.font = '800 ' + Math.round(196*s) + 'px Arial, Helvetica, sans-serif';
+  ctx.fillText('AP', size/2, 248*s);
+
+  // Texto "VIGAS"
+  ctx.font = '700 ' + Math.round(54*s) + 'px Arial, Helvetica, sans-serif';
+  ctx.fillText('VIGAS', size/2, 328*s);
+
+  // 5 bolinhas azul-claro
+  ctx.fillStyle = '#7cb3ff';
+  const bolY = 410 * s;
+  const bolR = 11 * s;
+  [166, 211, 256, 301, 346].forEach(x => {
+    ctx.beginPath();
+    ctx.arc(x*s, bolY, bolR, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  return c.toDataURL('image/png');
+}
 
 /* ---------- Motor ---------- */
 
@@ -411,14 +446,13 @@ function concreteProps(fck){
   if(fck <= 50) fctm = 0.3 * Math.pow(fck, 2/3);
   else fctm = 2.12 * Math.log(1 + 0.11*fck);
   const fctk_inf = 0.7 * fctm;
-  const fctk_sup = 1.3 * fctm;
   const fctd = fctk_inf / yc;
   let Eci;
   if(fck <= 50) Eci = 5600 * Math.sqrt(fck);
   else Eci = 21500 * Math.pow((fck/10 + 1.25)/1.25, 1/3);
   const Ecs = 0.85 * Eci;
   const av2 = fck <= 50 ? 1 - fck/250 : 1 - 50/250;
-  return {fcd, fctm, fctk_inf, fctk_sup, fctd, Eci, Ecs, av2};
+  return {fcd, fctm, fctk_inf, fctd, Eci, Ecs, av2};
 }
 
 function steelProps(classe){
@@ -460,7 +494,7 @@ function analyzeFlexure(p){
     x = Math.max(x, 1e-6);
     const Rcc = alpha_c * fcd * bw * lambda * x;
     const eps_sup = ecu * (x - dP) / x;
-    const eps_inf = ecu * (x - d)  / x;
+    const eps_inf = ecu * (x - d) / x;
     const sig_sup = Math.max(-fyd, Math.min(fyd, eps_sup * Es));
     const sig_inf = Math.max(-fyd, Math.min(fyd, eps_inf * Es));
     const F = Rcc + AsSup * sig_sup + AsInf * sig_inf;
@@ -488,7 +522,7 @@ function analyzeFlexure(p){
     else if(xd <= xdLim) dominio = '3';
     else dominio = '4';
   } else dominio = '4-5';
-  return {x: info.x, xd, MRd, eps_c: ecu, eps_sup: info.eps_sup, eps_inf: info.eps_inf,
+  return {x: info.x, xd, MRd, eps_sup: info.eps_sup, eps_inf: info.eps_inf,
           sig_sup: info.sig_sup, sig_inf: info.sig_inf, Rcc: info.Rcc,
           dominio, xdLim, convergiu: Math.abs(info.F) < 1000};
 }
@@ -551,45 +585,36 @@ function crackedInertia(bw, d, As, Es, Ecs){
 }
 
 function coletarInputs(){
-  const L  = +$('L').value;
-  const bw = +$('bw').value;
-  const h  = +$('h').value;
-  const c  = +$('c').value;
-  const fck = +$('fck').value;
-  const dEst = +$('dEst').value;
-  const ramos = +$('ramos').value;
-  const sEst  = +$('sEst').value;
-  const layersInf = [
-    {n:+$('ninf1').value, phi:+$('dinf1').value},
-    {n:+$('ninf2').value, phi:+$('dinf2').value}
-  ];
-  const layersSup = [
-    {n:+$('nsup1').value, phi:+$('dsup1').value},
-    {n:+$('nsup2').value, phi:+$('dsup2').value}
-  ];
-  return {L, bw, h, c, fck, dEst, ramos, sEst, layersInf, layersSup,
+  return {
+    L: +$('L').value, bw: +$('bw').value, h: +$('h').value, c: +$('c').value,
+    fck: +$('fck').value, dEst: +$('dEst').value, ramos: +$('ramos').value, sEst: +$('sEst').value,
+    layersInf: [
+      {n:+$('ninf1').value, phi:+$('dinf1').value},
+      {n:+$('ninf2').value, phi:+$('dinf2').value}
+    ],
+    layersSup: [
+      {n:+$('nsup1').value, phi:+$('dsup1').value},
+      {n:+$('nsup2').value, phi:+$('dsup2').value}
+    ],
     claInf: $('claInf').value, claSup: $('claSup').value, claEst: $('claEst').value,
-    evInf: +$('evInf').value, evSup: +$('evSup').value};
+    evInf: +$('evInf').value, evSup: +$('evSup').value
+  };
 }
 
 function calcular(){
   const inp = coletarInputs();
-  const bw_mm = inp.bw * 10, h_mm = inp.h * 10, L_mm = inp.L * 1000, L_m = inp.L;
-
+  const bw_mm = inp.bw*10, h_mm = inp.h*10, L_mm = inp.L*1000, L_m = inp.L;
   if(!(bw_mm > 50) || !(h_mm > 100) || !(L_mm > 200)){ toast('Geometria inválida'); return null; }
   if(inp.c < 10 || inp.c > Math.min(bw_mm/2, h_mm/2) - 20){ toast('Cobrimento inválido'); return null; }
 
   const cp = concreteProps(inp.fck);
   const stInf = steelProps(inp.claInf);
-  const stSup = steelProps(inp.claSup);
   const stEst = steelProps(inp.claEst);
 
   const AsInf = totalArea(inp.layersInf);
   const AsSup = totalArea(inp.layersSup);
-
   const dP = depthSuperior(h_mm, inp.c, inp.dEst, inp.layersSup, inp.evSup);
   const d  = depthInferior(h_mm, inp.c, inp.dEst, inp.layersInf, inp.evInf);
-
   if(d <= dP + 20){ toast('Geometria/armadura incompatível'); return null; }
 
   const Asw = inp.ramos * areaBar(inp.dEst);
@@ -597,16 +622,13 @@ function calcular(){
   const AswS = Asw / s_mm;
 
   const numBarsInf = inp.layersInf.reduce((s,l)=>s+(l.n||0),0);
-  const numBarsSup = inp.layersSup.reduce((s,l)=>s+(l.n||0),0);
   const larguraDisp = bw_mm - 2*(inp.c + inp.dEst);
   const phiInf1 = inp.layersInf[0].phi || 10;
   const espacMinInf = numBarsInf > 1 ? (larguraDisp - numBarsInf*phiInf1)/(numBarsInf-1) : 999;
   const espacOK = espacMinInf >= Math.max(20, phiInf1);
 
-  const flex = analyzeFlexure({
-    bw: bw_mm, d, dP, AsInf, AsSup,
-    fcd: cp.fcd, fyd: stInf.fyd, Es: stInf.Es, fck: inp.fck
-  });
+  const flex = analyzeFlexure({bw: bw_mm, d, dP, AsInf, AsSup,
+    fcd: cp.fcd, fyd: stInf.fyd, Es: stInf.Es, fck: inp.fck});
 
   const fywd = Math.min(stEst.fyd, 435);
   const sh = analyzeShear({bw: bw_mm, d, fcd: cp.fcd, fctd: cp.fctd, av2: cp.av2, Asw, s: s_mm, fywd});
@@ -614,8 +636,7 @@ function calcular(){
   const Ac = bw_mm * h_mm;
   const Ic = bw_mm * Math.pow(h_mm, 3) / 12;
   const W  = Ic / (h_mm/2);
-  const yt = h_mm/2;
-  const Mr = 1.5 * cp.fctm * Ic / yt;
+  const Mr = 1.5 * cp.fctm * Ic / (h_mm/2);
   const {III} = crackedInertia(bw_mm, d, AsInf, stInf.Es, cp.Ecs);
 
   const q_user = +$('q').value, P_user = +$('P').value, xP_user = +$('xP').value;
@@ -636,17 +657,12 @@ function calcular(){
   const deltaLim = L_mm / (+$('dlim').value);
 
   const MRd = flex.MRd;
-  const qRd_flex = (8*MRd) / (L_mm*L_mm);
-  const PRd_flex = (4*MRd) / L_mm;
-  const qRd_cis = (2*sh.VRd) / L_mm;
-  const PRd_cis = sh.VRd * 2;
+  const qRd_flex_kNm = (8*MRd) / (L_mm*L_mm) / 1000;
+  const PRd_flex_kN  = (4*MRd) / L_mm / 1000;
+  const qRd_cis_kNm  = (2*sh.VRd) / L_mm / 1000;
+  const PRd_cis_kN   = sh.VRd * 2 / 1000;
   const qRd_flecha_kNm = (384 * EI_kNm2 * (deltaLim/1000)) / (5 * Math.pow(L_m, 4));
   const PRd_flecha_kN  = (48 * EI_kNm2 * (deltaLim/1000)) / Math.pow(L_m, 3);
-
-  const qRd_flex_kNm = qRd_flex / 1000;
-  const PRd_flex_kN  = PRd_flex / 1000;
-  const qRd_cis_kNm  = qRd_cis / 1000;
-  const PRd_cis_kN   = PRd_cis / 1000;
 
   const qGover = [
     {modo:'FLEXÃO', q: qRd_flex_kNm},
@@ -665,22 +681,18 @@ function calcular(){
   const utilFlex   = Msd / (MRd/1e6);
   const utilCis    = Vsd / (sh.VRd/1000);
   const utilFlecha = deltaMax / deltaLim;
-
   const domOK = flex.dominio === '2' || flex.dominio === '3';
-  const domCrit = flex.dominio === '4' || flex.dominio === '4-5';
   const rho_inf = AsInf / (bw_mm * d);
-  const rho_sup = AsSup / (bw_mm * dP);
   const rho_min = 0.15/100;
 
   APP.inputs = {...inp, bw_mm, h_mm, L_mm, L_m, d, dP, AsInf, AsSup, Asw, AswS, s_mm,
                 Ac, Ic, W, qpp, q_total, EI_Nmm2, EI_kNm2};
-  APP.results = {cp, stInf, stSup, stEst, flex, sh, Mr, III, beam, Mmax, Vmax,
+  APP.results = {cp, stInf, stEst, flex, sh, Mr, III, beam, Mmax, Vmax,
                  deltas, deltaMax, deltaLim,
                  qRd_flex_kNm, PRd_flex_kN, qRd_cis_kNm, PRd_cis_kN,
                  qRd_flecha_kNm, PRd_flecha_kN, qGover, PGover,
                  Msd, Vsd, utilFlex, utilCis, utilFlecha,
-                 domOK, domCrit, rho_inf, rho_sup, rho_min,
-                 espacOK, espacMinInf, numBarsInf, numBarsSup};
+                 domOK, rho_inf, rho_min, espacOK, espacMinInf};
   return APP.results;
 }
 
@@ -709,48 +721,28 @@ function renderizar(){
   const diag = [];
   const uf = R.utilFlex;
   const clsF = uf <= 0.9 ? 'ok' : uf <= 1.0 ? 'warn' : 'err';
-  diag.push(`<div class="diag-item ${clsF}"><div class="dot"></div><div class="txt">
-    <b>Flexão — ${clsF==='ok'?'ATENDE':clsF==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b>
-    <span>MRd = ${fmt(R.flex.MRd/1e6,1)} kN·m · Msd = ${fmt(R.Msd,1)} kN·m · U = ${fmt(uf*100,1)}%</span></div></div>`);
-
+  diag.push(`<div class="diag-item ${clsF}"><div class="dot"></div><div class="txt"><b>Flexão — ${clsF==='ok'?'ATENDE':clsF==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b><span>MRd = ${fmt(R.flex.MRd/1e6,1)} kN·m · Msd = ${fmt(R.Msd,1)} kN·m · U = ${fmt(uf*100,1)}%</span></div></div>`);
   const uc = R.utilCis;
   const clsC = uc <= 0.9 ? 'ok' : uc <= 1.0 ? 'warn' : 'err';
-  diag.push(`<div class="diag-item ${clsC}"><div class="dot"></div><div class="txt">
-    <b>Cisalhamento — ${clsC==='ok'?'ATENDE':clsC==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b>
-    <span>VRd = ${fmt(R.sh.VRd/1000,1)} kN · Vsd = ${fmt(R.Vsd,1)} kN · U = ${fmt(uc*100,1)}%</span></div></div>`);
-
+  diag.push(`<div class="diag-item ${clsC}"><div class="dot"></div><div class="txt"><b>Cisalhamento — ${clsC==='ok'?'ATENDE':clsC==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b><span>VRd = ${fmt(R.sh.VRd/1000,1)} kN · Vsd = ${fmt(R.Vsd,1)} kN · U = ${fmt(uc*100,1)}%</span></div></div>`);
   const ud = R.utilFlecha;
   const clsD = ud <= 0.9 ? 'ok' : ud <= 1.0 ? 'warn' : 'err';
-  diag.push(`<div class="diag-item ${clsD}"><div class="dot"></div><div class="txt">
-    <b>Flecha — ${clsD==='ok'?'ATENDE':clsD==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b>
-    <span>δ = ${fmt(R.deltaMax,2)} mm · δlim = ${fmt(R.deltaLim,2)} mm · U = ${fmt(ud*100,1)}%</span></div></div>`);
-
+  diag.push(`<div class="diag-item ${clsD}"><div class="dot"></div><div class="txt"><b>Flecha — ${clsD==='ok'?'ATENDE':clsD==='warn'?'ATENÇÃO':'NÃO ATENDE'}</b><span>δ = ${fmt(R.deltaMax,2)} mm · δlim = ${fmt(R.deltaLim,2)} mm · U = ${fmt(ud*100,1)}%</span></div></div>`);
   const clsDom = R.domOK ? 'ok' : 'err';
-  diag.push(`<div class="diag-item ${clsDom}"><div class="dot"></div><div class="txt">
-    <b>Ductilidade — ${R.domOK?'OK':'VERIFICAR'}</b>
-    <span>Domínio ${R.flex.dominio} · x/d = ${fmt(R.flex.xd,3)} · limite = ${fmt(R.flex.xdLim,3)}</span></div></div>`);
-
+  diag.push(`<div class="diag-item ${clsDom}"><div class="dot"></div><div class="txt"><b>Ductilidade — ${R.domOK?'OK':'VERIFICAR'}</b><span>Domínio ${R.flex.dominio} · x/d = ${fmt(R.flex.xd,3)}</span></div></div>`);
   const clsAs = R.rho_inf >= R.rho_min ? 'ok' : 'warn';
-  diag.push(`<div class="diag-item ${clsAs}"><div class="dot"></div><div class="txt">
-    <b>Taxa de armadura inferior — ${clsAs==='ok'?'OK':'BAIXA'}</b>
-    <span>ρ = ${fmt(R.rho_inf*100,3)}% (mín ~${fmt(R.rho_min*100,2)}%)</span></div></div>`);
-
+  diag.push(`<div class="diag-item ${clsAs}"><div class="dot"></div><div class="txt"><b>Taxa de armadura — ${clsAs==='ok'?'OK':'BAIXA'}</b><span>ρ = ${fmt(R.rho_inf*100,3)}%</span></div></div>`);
   const clsEsp = R.espacOK ? 'ok' : 'err';
-  diag.push(`<div class="diag-item ${clsEsp}"><div class="dot"></div><div class="txt">
-    <b>Espaçamento entre barras — ${R.espacOK?'OK':'VERIFICAR'}</b>
-    <span>${fmt(R.espacMinInf,1)} mm entre barras</span></div></div>`);
+  diag.push(`<div class="diag-item ${clsEsp}"><div class="dot"></div><div class="txt"><b>Espaçamento — ${R.espacOK?'OK':'VERIFICAR'}</b><span>${fmt(R.espacMinInf,1)} mm</span></div></div>`);
   $('diagList').innerHTML = diag.join('');
 
-  const ul = [];
-  ul.push(`<div class="diag-item ${uf<=0.9?'ok':uf<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Flexão</b><span>${fmt(uf*100,1)}%</span></div></div>`);
-  ul.push(`<div class="diag-item ${uc<=0.9?'ok':uc<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Cisalhamento</b><span>${fmt(uc*100,1)}%</span></div></div>`);
-  ul.push(`<div class="diag-item ${ud<=0.9?'ok':ud<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Flecha</b><span>${fmt(ud*100,1)}%</span></div></div>`);
-  $('utilList').innerHTML = ul.join('');
+  $('utilList').innerHTML = `
+    <div class="diag-item ${uf<=0.9?'ok':uf<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Flexão</b><span>${fmt(uf*100,1)}%</span></div></div>
+    <div class="diag-item ${uc<=0.9?'ok':uc<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Cisalhamento</b><span>${fmt(uc*100,1)}%</span></div></div>
+    <div class="diag-item ${ud<=0.9?'ok':ud<=1?'warn':'err'}"><div class="dot"></div><div class="txt"><b>Flecha</b><span>${fmt(ud*100,1)}%</span></div></div>`;
 
   const gcls = R.qGover.modo === 'FLECHA' ? 'warn' : 'err';
-  $('govBox').innerHTML = `<div class="diag-item ${gcls}"><div class="dot"></div><div class="txt">
-    <b>${R.qGover.modo} GOVERNA</b>
-    <span>qRd = ${fmt(R.qGover.q,2)} kN/m | PRd = ${fmt(R.PGover.P,2)} kN (${R.PGover.modo})</span></div></div>`;
+  $('govBox').innerHTML = `<div class="diag-item ${gcls}"><div class="dot"></div><div class="txt"><b>${R.qGover.modo} GOVERNA</b><span>qRd = ${fmt(R.qGover.q,2)} kN/m | PRd = ${fmt(R.PGover.P,2)} kN (${R.PGover.modo})</span></div></div>`;
 
   atualizarSensibilidade();
   atualizarSecaoEspecifica();
@@ -841,23 +833,19 @@ function renderSVG(){
 
   if(layersInf[0] && layersInf[0].n > 0){
     const phiPx = layersInf[0].phi * scale;
-    const yRel = hPx - cNomPx - phiEstPx - phiPx/2;
-    s += drawLayer(layersInf[0], yRel);
+    s += drawLayer(layersInf[0], hPx - cNomPx - phiEstPx - phiPx/2);
   }
   if(layersInf[1] && layersInf[1].n > 0 && layersInf[0]){
     const phiPx = layersInf[1].phi * scale;
-    const yRel = hPx - cNomPx - phiEstPx - layersInf[0].phi*scale - evInf*scale - phiPx/2;
-    s += drawLayer(layersInf[1], yRel);
+    s += drawLayer(layersInf[1], hPx - cNomPx - phiEstPx - layersInf[0].phi*scale - evInf*scale - phiPx/2);
   }
   if(layersSup[0] && layersSup[0].n > 0){
     const phiPx = layersSup[0].phi * scale;
-    const yRel = cNomPx + phiEstPx + phiPx/2;
-    s += drawLayer(layersSup[0], yRel);
+    s += drawLayer(layersSup[0], cNomPx + phiEstPx + phiPx/2);
   }
   if(layersSup[1] && layersSup[1].n > 0 && layersSup[0]){
     const phiPx = layersSup[1].phi * scale;
-    const yRel = cNomPx + phiEstPx + layersSup[0].phi*scale + evSup*scale + phiPx/2;
-    s += drawLayer(layersSup[1], yRel);
+    s += drawLayer(layersSup[1], cNomPx + phiEstPx + layersSup[0].phi*scale + evSup*scale + phiPx/2);
   }
 
   s += `<line x1="${x0}" y1="${y0+hPx+18}" x2="${x0+bwPx}" y2="${y0+hPx+18}" stroke="#4a5568"/>`;
@@ -967,26 +955,15 @@ function drawChart(canvas, series, opts){
     ctx.fillStyle='#4a5568'; ctx.font='10px sans-serif';
     ctx.fillText(opts.yLabel,0,0); ctx.restore();
   }
-  if(series.length > 1){
-    let ly = padT + 10;
-    ctx.font='10px sans-serif'; ctx.textAlign='left'; ctx.textBaseline='middle';
-    for(const s of series){
-      ctx.fillStyle = s.color;
-      ctx.fillRect(padL+6, ly-1.5, 12, 3);
-      ctx.fillStyle='#4a5568';
-      ctx.fillText(s.name, padL+22, ly);
-      ly += 14;
-    }
-  }
 }
 
 function renderGraficos(){
   const R = APP.results, I = APP.inputs;
   if(!R) return;
   const {xs, Ms, Vs} = R.beam;
-  drawChart($('cvM'), [{name:'M(x) [kN·m]', color:'#0b3d91', data: xs.map((x,i)=>[x, Ms[i]])}], {xLabel:'x [m]', yLabel:'M [kN·m]'});
-  drawChart($('cvV'), [{name:'V(x) [kN]', color:'#c53030', data: xs.map((x,i)=>[x, Vs[i]])}], {xLabel:'x [m]', yLabel:'V [kN]'});
-  drawChart($('cvD'), [{name:'δ(x) [mm]', color:'#2f855a', data: xs.map((x,i)=>[x, R.deltas[i]])}], {xLabel:'x [m]', yLabel:'δ [mm]'});
+  drawChart($('cvM'), [{name:'M(x)', color:'#0b3d91', data: xs.map((x,i)=>[x, Ms[i]])}], {xLabel:'x [m]', yLabel:'M [kN·m]'});
+  drawChart($('cvV'), [{name:'V(x)', color:'#c53030', data: xs.map((x,i)=>[x, Vs[i]])}], {xLabel:'x [m]', yLabel:'V [kN]'});
+  drawChart($('cvD'), [{name:'δ(x)', color:'#2f855a', data: xs.map((x,i)=>[x, R.deltas[i]])}], {xLabel:'x [m]', yLabel:'δ [mm]'});
   drawChart($('cvMK'), [{name:'M × κ', color:'#0b3d91', data: curvaMK(I, R)}], {xLabel:'κ [1/m]', yLabel:'M [kN·m]'});
   drawChart($('cvPD'), [{name:'q × δ', color:'#2f855a', data: curvaPD(I, R)}], {xLabel:'δ [mm]', yLabel:'q [kN/m]'});
   drawChart($('cvComp'), [
@@ -1001,8 +978,7 @@ function curvaMK(I, R){
   for(let i=0;i<=40;i++){
     const M = MRd * i/40;
     const EIeff = effectiveEI(R.cp.Ecs, I.Ic, R.Mr, M*1e6, R.III);
-    const kappa_mm = (M*1e6) / EIeff;
-    out.push([kappa_mm * 1000, M]);
+    out.push([(M*1e6) / EIeff * 1000, M]);
   }
   return out;
 }
@@ -1016,8 +992,7 @@ function curvaPD(I, R){
     const Mmax = q*L*L/8;
     const EIeff = effectiveEI(R.cp.Ecs, I.Ic, R.Mr, Mmax*1e6, R.III);
     const EI_kNm2 = EIeff / 1e9;
-    const delta_m = (5 * q * Math.pow(L,4)) / (384 * EI_kNm2);
-    out.push([delta_m * 1000, q]);
+    out.push([(5 * q * Math.pow(L,4)) / (384 * EI_kNm2) * 1000, q]);
   }
   return out;
 }
@@ -1031,31 +1006,18 @@ function renderMemoria(){
   const div = (t,b)=>`<div class="mem-item"><b>${t}</b>${b}</div>`;
   let html = '';
 
-  html += div('Dados de entrada', `
+  html += div('Geometria e materiais', `
     L = ${I.L} m · bw = ${I.bw} cm · h = ${I.h} cm · c = ${I.c} mm<br>
-    fck = ${I.fck} MPa · γc = ${$('gc').value} · γs = ${$('gs').value}<br>
-    Armadura inferior: ${I.layersInf.filter(l=>l.n).map(l=>l.n+' Ø'+l.phi).join(' + ') || '—'}<br>
-    Armadura superior: ${I.layersSup.filter(l=>l.n).map(l=>l.n+' Ø'+l.phi).join(' + ') || '—'}<br>
-    Estribos: Ø${$('dEst').value} c/ ${I.sEst} cm — ${$('ramos').value} ramos
-  `);
-  html += div('Propriedades do concreto', `
-    fcd = fck/γc = ${I.fck}/${$('gc').value} = <span class="res">${fmt(cp.fcd,2)} MPa</span><br>
-    fctm = 0,3·fck^(2/3) = ${fmt(cp.fctm,3)} MPa<br>
-    fctk,inf = 0,7·fctm = ${fmt(cp.fctk_inf,3)} MPa<br>
-    fctd = fctk,inf/γc = ${fmt(cp.fctd,3)} MPa<br>
-    Eci = 5600·√fck = ${fmt(cp.Eci,0)} MPa<br>
-    Ecs = 0,85·Eci = <span class="res">${fmt(cp.Ecs,0)} MPa</span>
-  `);
-  html += div('Geometria', `
-    Ac = ${fmt(I.Ac,0)} mm² = ${fmt(I.Ac/100,2)} cm²<br>
-    I = ${fmt(I.Ic,0)} mm⁴ = ${fmt(I.Ic/1e4,2)} cm⁴<br>
-    W = ${fmt(I.W,0)} mm³<br>
-    d = ${fmt(I.d,1)} mm = ${fmt(I.d/10,2)} cm · d' = ${fmt(I.dP,1)} mm
+    fck = ${I.fck} MPa · fcd = <span class="res">${fmt(cp.fcd,2)} MPa</span><br>
+    fctm = ${fmt(cp.fctm,3)} MPa · Ecs = ${fmt(cp.Ecs,0)} MPa<br>
+    Arm. inf: ${I.layersInf.filter(l=>l.n).map(l=>l.n+' Ø'+l.phi).join(' + ') || '—'}<br>
+    Arm. sup: ${I.layersSup.filter(l=>l.n).map(l=>l.n+' Ø'+l.phi).join(' + ') || '—'}<br>
+    Estribos: Ø${I.dEst} c/ ${I.sEst} cm — ${I.ramos} ramos
   `);
   html += div('Armaduras', `
     As,inf = <span class="res">${fmt(I.AsInf/100,2)} cm²</span> · As,sup = <span class="res">${fmt(I.AsSup/100,2)} cm²</span><br>
-    Asw = ${fmt(I.Asw,2)} mm² · Asw/s = ${fmt(I.AswS*1000,3)} cm²/m<br>
-    ρinf = ${fmt(R.rho_inf*100,3)}%
+    d = ${fmt(I.d/10,2)} cm · d' = ${fmt(I.dP/10,2)} cm<br>
+    Asw = ${fmt(I.Asw,2)} mm² · Asw/s = ${fmt(I.AswS*1000,3)} cm²/m · ρinf = ${fmt(R.rho_inf*100,3)}%
   `);
   html += div('Flexão', `
     x = <span class="res">${fmt(R.flex.x,2)} mm</span> · x/d = ${fmt(R.flex.xd,4)} (lim ${fmt(R.flex.xdLim,3)})<br>
@@ -1075,15 +1037,11 @@ function renderMemoria(){
     EI efetivo = ${fmt(I.EI_kNm2,1)} kN·m²<br>
     δmax = <span class="res">${fmt(R.deltaMax,2)} mm</span> · δlim = ${fmt(R.deltaLim,2)} mm
   `);
-  html += div('Capacidade de carga', `
-    qRd,flex = ${fmt(R.qRd_flex_kNm,2)} kN/m · qRd,cis = ${fmt(R.qRd_cis_kNm,2)} kN/m · qRd,δ = ${fmt(R.qRd_flecha_kNm,2)} kN/m<br>
+  html += div('Capacidade', `
+    qRd,flex = ${fmt(R.qRd_flex_kNm,2)} · qRd,cis = ${fmt(R.qRd_cis_kNm,2)} · qRd,δ = ${fmt(R.qRd_flecha_kNm,2)} kN/m<br>
     <b>qRd governante = ${fmt(R.qGover.q,2)} kN/m (${R.qGover.modo})</b><br>
     <b>PRd governante = ${fmt(R.PGover.P,2)} kN (${R.PGover.modo})</b>
   `);
-  const allOK = R.utilFlex <= 1 && R.utilCis <= 1 && R.utilFlecha <= 1;
-  html += div('Conclusão', allOK
-    ? '<span class="res">A viga atende às verificações implementadas.</span>'
-    : '<span style="color:#c53030;font-weight:700">Alguma verificação NÃO atende.</span>');
   html += `<div class="note">
     <b>LIMITAÇÕES</b><br>
     • Não implementado: fadiga, sismos, ELS-W completa, 2ª ordem global, torção.<br>
@@ -1120,7 +1078,7 @@ $('btnExemplo').onclick = ()=>{
   $('dEst').value = 6.3; $('ramos').value = 2; $('sEst').value = 15;
   $('q').value = 20; $('P').value = 0;
   updateAswDisplay(); updateConcInfo(); renderSVG();
-  toast('Exemplo ilustrativo carregado — não é projeto executivo');
+  toast('Exemplo carregado');
 };
 
 function salvarProjeto(){
@@ -1130,17 +1088,17 @@ function salvarProjeto(){
   const projetos = JSON.parse(localStorage.getItem('apavan_projetos') || '{}');
   projetos[nome] = {dados, data: new Date().toISOString()};
   localStorage.setItem('apavan_projetos', JSON.stringify(projetos));
-  toast('Projeto salvo');
+  toast('Salvo');
   renderProjList();
 }
 $('btnSalvar').onclick = salvarProjeto;
 $('btnSalvar2').onclick = salvarProjeto;
 
 $('btnNovo').onclick = ()=>{
-  if(!confirm('Limpar todos os campos?')) return;
-  $('L').value = 5; $('bw').value = 14; $('h').value = 40; $('c').value = 25;
-  $('ninf1').value = 3; $('ninf2').value = 0; $('nsup1').value = 2; $('nsup2').value = 0;
-  $('q').value = 20; $('P').value = 0; $('xP').value = 2.5;
+  if(!confirm('Limpar campos?')) return;
+  $('L').value=5; $('bw').value=14; $('h').value=40; $('c').value=25;
+  $('ninf1').value=3; $('ninf2').value=0; $('nsup1').value=2; $('nsup2').value=0;
+  $('q').value=20; $('P').value=0; $('xP').value=2.5;
   updateAswDisplay(); updateConcInfo(); renderSVG();
   toast('Novo projeto');
 };
@@ -1155,7 +1113,7 @@ $('btnCSV').onclick = ()=>{
   const blob = new Blob([csv], {type:'text/csv'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'apavan_viga.csv';
+  a.download = 'apavan_vigas.csv';
   a.click();
 };
 
@@ -1163,7 +1121,7 @@ $('btnPDF').onclick = ()=>{
   if(!APP.results){ toast('Calcule primeiro'); return; }
   const R = APP.results, I = APP.inputs;
   const w = window.open('', '_blank');
-  if(!w){ toast('Bloqueador de pop-up ativo'); return; }
+  if(!w){ toast('Bloqueador de pop-up'); return; }
   const html = `
   <!DOCTYPE html><html><head><meta charset="utf-8"><title>APavan Vigas — Relatório</title>
   <style>
@@ -1178,7 +1136,7 @@ $('btnPDF').onclick = ()=>{
   </style></head><body>
   <h1>APavan Engenharia e Consultoria — APavan Vigas</h1>
   <h3>Memória de Cálculo — Viga de Concreto Armado — NBR 6118:2023</h3>
-  <p>Data: ${new Date().toLocaleString('pt-BR')} · Versão motor: ${APP.version} · ${APP.engineDate}</p>
+  <p>Data: ${new Date().toLocaleString('pt-BR')} · Motor: ${APP.version} · ${APP.engineDate}</p>
   <h2>1. Geometria</h2>
   <table><tr><th>L (m)</th><th>bw (cm)</th><th>h (cm)</th><th>c (mm)</th></tr>
   <tr><td>${I.L}</td><td>${I.bw}</td><td>${I.h}</td><td>${I.c}</td></tr></table>
@@ -1202,16 +1160,10 @@ $('btnPDF').onclick = ()=>{
   <tr><td>Cisalhamento</td><td>${fmt(R.Vsd,2)} kN</td><td>${fmt(R.sh.VRd/1000,2)} kN</td><td>${fmt(R.utilCis*100,1)}%</td><td>${R.utilCis<=1?'ATENDE':'NÃO ATENDE'}</td></tr>
   <tr><td>Flecha</td><td>${fmt(R.deltaMax,2)} mm</td><td>${fmt(R.deltaLim,2)} mm</td><td>${fmt(R.utilFlecha*100,1)}%</td><td>${R.utilFlecha<=1?'ATENDE':'NÃO ATENDE'}</td></tr></table>
   <h2>6. Diagnóstico</h2>
-  <p><b>Modo governante:</b> ${R.qGover.modo}<br>
-  <b>Domínio:</b> ${R.flex.dominio} (x/d = ${fmt(R.flex.xd,3)})<br>
-  <b>ρ inf:</b> ${fmt(R.rho_inf*100,3)}%</p>
-  <h2>7. Conclusão</h2>
-  <p>${R.utilFlex<=1 && R.utilCis<=1 && R.utilFlecha<=1
-    ? 'A viga ATENDE às verificações implementadas.'
-    : 'A viga NÃO ATENDE a pelo menos uma verificação.'}</p>
+  <p><b>Governante:</b> ${R.qGover.modo}<br><b>Domínio:</b> ${R.flex.dominio}<br><b>ρinf:</b> ${fmt(R.rho_inf*100,3)}%</p>
   <div class="foot">
-    <b>Limitações:</b> fadiga, torção, ELS-W completa, 2ª ordem global, fluência e retração não estão implementados. Cisalhamento: Modelo I (bielas 45°). Fissuração avaliada via Branson.<br><br>
-    Esta ferramenta é destinada ao apoio à análise. Os resultados devem ser conferidos por profissional legalmente habilitado e não substituem projeto executivo.
+    <b>Limitações:</b> fadiga, torção, ELS-W completa, 2ª ordem global, fluência e retração não implementados. Cisalhamento: Modelo I. Fissuração via Branson.<br><br>
+    Ferramenta de apoio à análise. Resultados devem ser conferidos por profissional legalmente habilitado.
   </div>
   </body></html>`;
   w.document.write(html);
@@ -1226,36 +1178,27 @@ function updateAswDisplay(){
   const ramos = +$('ramos').value;
   const Asw = ramos * areaBar(dEst);
   $('aswDisplay').value = (Asw/100).toFixed(3);
-  const s = +$('sEst').value;
-  $('aswSDisplay').value = (Asw/(s*10)*1000/100).toFixed(3);
-  const AsInf = (+$('ninf1').value)*areaBar(+$('dinf1').value)
-              + (+$('ninf2').value)*areaBar(+$('dinf2').value);
-  const AsSup = (+$('nsup1').value)*areaBar(+$('dsup1').value)
-              + (+$('nsup2').value)*areaBar(+$('dsup2').value);
+  $('aswSDisplay').value = (Asw/((+$('sEst').value)*10)*1000/100).toFixed(3);
+  const AsInf = (+$('ninf1').value)*areaBar(+$('dinf1').value) + (+$('ninf2').value)*areaBar(+$('dinf2').value);
+  const AsSup = (+$('nsup1').value)*areaBar(+$('dsup1').value) + (+$('nsup2').value)*areaBar(+$('dsup2').value);
   $('asInfDisplay').value = (AsInf/100).toFixed(2);
   $('asSupDisplay').value = (AsSup/100).toFixed(2);
 }
 
 function updateConcInfo(){
-  const fck = +$('fck').value;
-  const cp = concreteProps(fck);
-  $('concInfo').innerHTML =
-    `fcd = <b>${fmt(cp.fcd,2)} MPa</b> · fctm = ${fmt(cp.fctm,3)} MPa · fctk,inf = ${fmt(cp.fctk_inf,3)} MPa · Ecs = ${fmt(cp.Ecs,0)} MPa`;
+  const cp = concreteProps(+$('fck').value);
+  $('concInfo').innerHTML = `fcd = <b>${fmt(cp.fcd,2)} MPa</b> · fctm = ${fmt(cp.fctm,3)} MPa · Ecs = ${fmt(cp.Ecs,0)} MPa`;
 }
 
 /* ---------- Listeners ---------- */
 
-['L','bw','h','c','fck','dEst','ramos','sEst',
- 'ninf1','dinf1','ninf2','dinf2','nsup1','dsup1','nsup2','dsup2',
- 'evInf','evSup','gc','gs'].forEach(id=>{
+['L','bw','h','c','fck','dEst','ramos','sEst','ninf1','dinf1','ninf2','dinf2','nsup1','dsup1','nsup2','dsup2','evInf','evSup','gc','gs'].forEach(id=>{
   const el = $(id);
   if(el) el.addEventListener('input', ()=>{ updateAswDisplay(); updateConcInfo(); renderSVG(); });
 });
 $('xSec').addEventListener('input', atualizarSecaoEspecifica);
 $('sensSlider').addEventListener('input', atualizarSensibilidade);
 window.addEventListener('resize', ()=>{ if(APP.results) renderGraficos(); });
-
-/* ---------- Navegação ---------- */
 
 document.querySelectorAll('nav.tabs button').forEach(b=>{
   b.onclick = ()=>{
@@ -1293,7 +1236,7 @@ function renderProjList(){
         if(!p) return;
         for(const k in p.dados){ const el = $(k); if(el) el.value = p.dados[k]; }
         updateAswDisplay(); updateConcInfo(); renderSVG();
-        toast('Projeto aberto: ' + nome);
+        toast('Aberto: ' + nome);
       } else {
         if(!confirm('Excluir ' + nome + '?')) return;
         const p = JSON.parse(localStorage.getItem('apavan_projetos') || '{}');
@@ -1305,14 +1248,29 @@ function renderProjList(){
   });
 }
 
-/* ---------- PWA (manifest + SW inline) ---------- */
+/* =========================================================
+   PWA + ÍCONE PNG PARA iOS
+   ========================================================= */
 
 (function setupPWA(){
   try{
-    // Ícone "AP / VIGAS / •••••" no mesmo padrão do APavan Lajes
-    const iconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e5bb8"/><stop offset="1" stop-color="#0b3d91"/></linearGradient></defs><rect width="512" height="512" rx="115" ry="115" fill="url(#g)"/><text x="256" y="248" font-family="Arial,Helvetica,sans-serif" font-size="196" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-6">AP</text><text x="256" y="328" font-family="Arial,Helvetica,sans-serif" font-size="54" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="6">VIGAS</text><circle cx="166" cy="410" r="11" fill="#7cb3ff"/><circle cx="211" cy="410" r="11" fill="#7cb3ff"/><circle cx="256" cy="410" r="11" fill="#7cb3ff"/><circle cx="301" cy="410" r="11" fill="#7cb3ff"/><circle cx="346" cy="410" r="11" fill="#7cb3ff"/></svg>`;
-    const iconData = 'data:image/svg+xml;base64,' + btoa(iconSVG);
+    // Gera PNGs em três tamanhos (iOS exige PNG, não aceita SVG)
+    const png512 = generateIconPNG(512);
+    const png192 = generateIconPNG(192);
+    const png180 = generateIconPNG(180);
 
+    // Substitui apple-touch-icon com PNG
+    $('ati180').href = png180;
+    $('ati192').href = png192;
+    $('atiDef').href = png180;
+    $('favicon').href = png192;
+
+    // Também sobrescreve qualquer outro apple-touch-icon que possa existir
+    document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(l=>{
+      l.href = png180;
+    });
+
+    // Manifest com os PNGs
     const manifest = {
       name: 'APavan Vigas — Capacidade Resistente',
       short_name: 'APavan Vigas',
@@ -1325,20 +1283,16 @@ function renderProjList(){
       theme_color: '#0b3d91',
       lang: 'pt-BR',
       icons: [
-        { src: iconData, sizes: '192x192', type: 'image/svg+xml', purpose: 'any' },
-        { src: iconData, sizes: '512x512', type: 'image/svg+xml', purpose: 'any' },
-        { src: iconData, sizes: '192x192', type: 'image/svg+xml', purpose: 'maskable' },
-        { src: iconData, sizes: '512x512', type: 'image/svg+xml', purpose: 'maskable' }
+        { src: png192, sizes: '192x192', type: 'image/png', purpose: 'any' },
+        { src: png512, sizes: '512x512', type: 'image/png', purpose: 'any' },
+        { src: png192, sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+        { src: png512, sizes: '512x512', type: 'image/png', purpose: 'maskable' }
       ]
     };
     const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
     $('manifestLink').href = URL.createObjectURL(blob);
 
-    // Sobrescreve apple-touch-icon com o mesmo ícone caso o navegador aceite data-URI
-    document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(l=>{
-      l.href = iconData;
-    });
-
+    // Service Worker (opcional, fallback silencioso)
     if('serviceWorker' in navigator){
       const swCode = `
         const CACHE = 'apavan-vigas-v1';
@@ -1359,7 +1313,9 @@ function renderProjList(){
         navigator.serviceWorker.register(swURL).catch(()=>{});
       }catch(_){}
     }
-  }catch(_){}
+  }catch(err){
+    console.warn('PWA setup:', err);
+  }
 })();
 
 /* ---------- Init ---------- */
