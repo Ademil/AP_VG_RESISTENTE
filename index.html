@@ -6,14 +6,12 @@
 <meta name="theme-color" content="#0b3d91">
 <title>APavan Vigas — Capacidade Resistente</title>
 
-<!-- ============ iOS: PWA + home screen ============ -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="APavan Vigas">
 <meta name="application-name" content="APavan Vigas">
 <meta name="mobile-web-app-capable" content="yes">
 
-<!-- Placeholders — preenchidos via JS com PNG gerado dinamicamente -->
 <link rel="apple-touch-icon" sizes="180x180" id="ati180" href="data:image/png;base64,iVBORw0KGgo=">
 <link rel="apple-touch-icon" sizes="192x192" id="ati192" href="data:image/png;base64,iVBORw0KGgo=">
 <link rel="apple-touch-icon" id="atiDef" href="data:image/png;base64,iVBORw0KGgo=">
@@ -369,7 +367,7 @@ footer.app .btn-primary{padding:14px;font-size:14px}
 <div class="toast" id="toast"></div>
 
 <script>
-/* APavan Vigas — v1.0.2 — NBR 6118:2023 */
+/* APavan Vigas — v1.0.3 — NBR 6118:2023 */
 
 const $ = (id)=>document.getElementById(id);
 const fmt = (v, n=2)=>{
@@ -381,10 +379,10 @@ const toast = (m)=>{
   clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'), 2200);
 };
 
-const APP = { inputs:null, results:null, version:'1.0.2', engineDate:new Date().toISOString().slice(0,10) };
+const APP = { inputs:null, results:null, version:'1.0.3', engineDate:new Date().toISOString().slice(0,10) };
 
 /* =========================================================
-   GERAÇÃO DO ÍCONE PNG — AP / VIGAS / •••••
+   ÍCONE PNG — AP / VIGAS / •••••  (VIGAS abaixo do AP)
    ========================================================= */
 
 function generateIconPNG(size){
@@ -420,13 +418,13 @@ function generateIconPNG(size){
   ctx.font = '800 ' + Math.round(196*s) + 'px Arial, Helvetica, sans-serif';
   ctx.fillText('AP', size/2, 248*s);
 
-  // Texto "VIGAS"
+  // Texto "VIGAS" — desceu de 328 para 368
   ctx.font = '700 ' + Math.round(54*s) + 'px Arial, Helvetica, sans-serif';
-  ctx.fillText('VIGAS', size/2, 328*s);
+  ctx.fillText('VIGAS', size/2, 368*s);
 
-  // 5 bolinhas azul-claro
+  // 5 bolinhas azul-claro — desceram de 410 para 445
   ctx.fillStyle = '#7cb3ff';
-  const bolY = 410 * s;
+  const bolY = 445 * s;
   const bolR = 11 * s;
   [166, 211, 256, 301, 346].forEach(x => {
     ctx.beginPath();
@@ -1254,23 +1252,16 @@ function renderProjList(){
 
 (function setupPWA(){
   try{
-    // Gera PNGs em três tamanhos (iOS exige PNG, não aceita SVG)
     const png512 = generateIconPNG(512);
     const png192 = generateIconPNG(192);
     const png180 = generateIconPNG(180);
 
-    // Substitui apple-touch-icon com PNG
     $('ati180').href = png180;
     $('ati192').href = png192;
     $('atiDef').href = png180;
     $('favicon').href = png192;
+    document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(l=>{ l.href = png180; });
 
-    // Também sobrescreve qualquer outro apple-touch-icon que possa existir
-    document.querySelectorAll('link[rel="apple-touch-icon"]').forEach(l=>{
-      l.href = png180;
-    });
-
-    // Manifest com os PNGs
     const manifest = {
       name: 'APavan Vigas — Capacidade Resistente',
       short_name: 'APavan Vigas',
@@ -1292,7 +1283,6 @@ function renderProjList(){
     const blob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
     $('manifestLink').href = URL.createObjectURL(blob);
 
-    // Service Worker (opcional, fallback silencioso)
     if('serviceWorker' in navigator){
       const swCode = `
         const CACHE = 'apavan-vigas-v1';
